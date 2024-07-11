@@ -1,5 +1,7 @@
 # EasyConcurrent
- Java Concurrent Utility class helps to design easy implementation of thread handling with callback
+ Java Concurrent Utility class helps to design easy implementation of thread handling with callback.
+
+ To use FutureApi<GENERIC_TYPE>
 ```
 public class Test {
     private final StringBuilder finalOutput = new StringBuilder();
@@ -57,4 +59,25 @@ public class Test {
         return finalOutput;
     }
 }
+```
+
+To Use Thread Tool:
+```
+ThreadTool threadTool=new ThreadTool() {
+            @Override
+            public void beforeThreadStarted() {
+                System.out.println("Before thread started");
+            }
+
+            @Override
+            public void onThreadStarted() {
+                System.out.println("Thread started: "+Thread.currentThread().getName());
+                normalShutDown();
+            }
+
+            @Override
+            public void onThreadCatchedError(String err) {
+                System.out.println(err);
+            }
+        }.startExecution();
 ```
