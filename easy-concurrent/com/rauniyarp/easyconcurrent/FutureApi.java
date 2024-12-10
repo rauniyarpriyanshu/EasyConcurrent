@@ -107,7 +107,7 @@ public class FutureApi<T> {
         try {
             mCountDownLatch.await();
         } catch (InterruptedException e) {
-            mCallback.onStopThread(e.getMessage());
+            mCallback.onThreadStop(e.getMessage());
         }
     }
 

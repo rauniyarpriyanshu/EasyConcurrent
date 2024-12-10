@@ -22,6 +22,6 @@ public interface FutureCallback<T> {
      *
      * @param error return error message if thread execution catches any error
      */
-    void onStopThread(String error);
+    void onThreadStop(String error);
 
 }
