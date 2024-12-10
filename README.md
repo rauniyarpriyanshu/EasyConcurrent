@@ -22,7 +22,7 @@ public class Test {
             }
         }, true);
 
-        stringFutureApi.setListener(new FutureApi.Listener<String>() {
+        stringFutureApi.setListener(new FutureApi.FutureCallback<String>() {
             @Override
             public void onCompleted(String value, boolean taskStatus) {
               System.out.println("onCompleted(): "+value);
@@ -37,7 +37,7 @@ public class Test {
             }
 
             @Override
-            public void onStopThread(String error) {
+            public void onThreadStop(String error) {
                 System.out.println(error);
             }
         });
