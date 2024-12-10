@@ -1,7 +1,7 @@
 # EasyConcurrent
  Java Concurrent Utility class helps to design easy implementation of thread handling with callback.
 
- To use FutureApi<GENERIC_TYPE>(for more information please check FutureApi.java file)
+ To use FutureApi<TYPE>(for more information please check FutureApi.java file)
 ```
 public class Test {
     private final StringBuilder finalOutput = new StringBuilder();

@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 * */
 public class FutureApi<T> {
     private boolean isLatchEnabled;
-    private Listener<T> mCallback;
+    private FutureCallback<T> mCallback;
     private ThreadPoolExecutor poolExecutor;
     private Future<T> mFuture;
     private CountDownLatch mCountDownLatch;
@@ -66,7 +66,7 @@ public class FutureApi<T> {
      * set callback to track event in your app for this Api
      * @param  listener-callback or listener for this api use<br> <code>new Listener< GENERIC TYPE >{and methods}</T></code>
     * */
-    public void setListener(Listener<T> listener) {
+    public void setListener(FutureCallback<T> listener) {
         mCallback = listener;
     }
 
@@ -80,7 +80,7 @@ public class FutureApi<T> {
     }
 
     /**
-     * Start execution process here, must call {@link FutureApi#setListener(Listener)}
+     * Start execution process here, must call {@link FutureApi#setListener(FutureCallback)}
      * to start execution
      */
     public void execute() {
@@ -111,15 +111,7 @@ public class FutureApi<T> {
         }
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        poolExecutor = null;
-        mCountDownLatch = null;
-        mFuture = null;
-        mCallback = null;
-        mCallable = null;
-        super.finalize();
-    }
+
 
     /**
      * This method allow you to stop thread
@@ -181,32 +173,6 @@ public class FutureApi<T> {
         mFuture = null;
         mCountDownLatch = null;
         mCallback = null;
-    }
-
-    public interface Listener<T> {
-        /**
-         * This method allow you to check completion status from thread
-         *
-         * @param futureGet  return output from callable
-         * @param taskStatus return if task is completed or not from future
-         */
-        void onCompleted(T futureGet, boolean taskStatus);
-
-        /**
-         * This method allow you to check if you catch any exception with message during execution
-         *
-         * @param error return error message if thread execution catches any error
-         */
-        void onError(String error);
-
-        /**
-         * This method allow you to check if you catch any exception with message while you stop any other thread when
-         * latch is enabled
-         *
-         * @param error return error message if thread execution catches any error
-         */
-        void onStopThread(String error);
-
     }
 }
 
